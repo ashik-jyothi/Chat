@@ -82,17 +82,17 @@ module.exports = function(socket, conn, io) {
             fn(response);
         })
     })
-    socket.on('getRooms',function(e,fn){
-            conn.query('SELECT roomname FROM `Room`', function(error, results) {
-            if (error) {
-                console.log("error:", error);
-            } else {
-                console.log("FETCHED ROOMS FROM MYDB");
-                // console.log(results);
-                fn(results);
-            }
-        });
-    })
+    // socket.on('getRooms',function(e,fn){
+    //         conn.query('SELECT roomname FROM `Room`', function(error, results) {
+    //         if (error) {
+    //             console.log("error:", error);
+    //         } else {
+    //             console.log("FETCHED ROOMS FROM MYDB");
+    //             // console.log(results);
+    //             fn(results);
+    //         }
+    //     });
+    // })
 
     socket.on('getUsers',function(e,fn){
              conn.query('SELECT username FROM `User`', function(error, results) {

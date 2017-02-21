@@ -4,7 +4,7 @@ var passport = require('./config/passport');
 
 module.exports = function(app,passport) {
     app.post('/signin', function(req, res, next) {
-        console.log("POST REQ",req);
+        console.log("POST REQ");
         passport.authenticate('local', function(err, user, info) {
             if (err) {
                 return next(err);
