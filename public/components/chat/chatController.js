@@ -1,10 +1,13 @@
 angular.module('app')
-.controller('chatController', ['$scope', '$document', 'Socket', 'Session', '$state', '$timeout', function($scope, $document, Socket, Session, $state, $timeout) {
+.controller('chatController', ['$scope', '$document', 'Socket', 'Session', '$state', '$timeout', '$http', function($scope, $document, Socket, Session, $state, $timeout, $http) {
     
     $scope.user = Session.user.username;
     // $scope.room = Session.room;
     $scope.disconnect = function() {
-        window.location('/logout');
+        $http.get('/logout').then(function(res){
+            $state.go('login')
+            console.log("LOGGED OUT")});
+        // window.location('/logout');
         // Socket.emit('logout', $scope.user, function() {
         //     console.log('Logout success')
         //     Session.clearUser(function() {

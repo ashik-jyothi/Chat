@@ -14,11 +14,11 @@ angular.module('app')
                     }
                 }
             })
-            .state('frontpage', {
-                url: '/frontpage',
+            .state('admin', {
+                url: '/admin',
                 views: {
                     'content': {
-                        templateUrl: 'components/frontpage/frontpage.html'
+                        templateUrl: 'components/admin/adminpage.html'
                     }
                 }
             })
@@ -38,7 +38,7 @@ angular.module('app')
             if (toState.url == '/') {
                 e.preventDefault();
                 if (Session.user) {
-                    $state.go('frontpage')
+                    $state.go('admin')
                 } else {
                     $state.go('login')
                 }

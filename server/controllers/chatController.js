@@ -41,7 +41,7 @@ module.exports = function(socket, conn, io) {
        var currentuser = Users.addUser(user.id, user.username);
         // console.log("USERS",un.users);
         console.log("NEW SOCKET ID::" + socket.id);
-        conn.query("UPDATE User SET socketid = ? WHERE id = ?", [socket.id, user.id], function(err, result) {
+        conn.query("UPDATE User SET socketid = ? WHERE username = ?", [socket.id, user.username], function(err, result) {
             if (err) {
                 console.error('ERROR!::::::::::' + err);
             } else {
@@ -57,30 +57,7 @@ module.exports = function(socket, conn, io) {
     
     socket.on('joinRoom', function(room,cb) {
         var currentuser = Users.getUser(room.id);
-            conn.query("SELECT * FROM `Room` WHERE `roomname` = ?",[room.data], function(error, results) {
-                console.log("inside query:::",results);
-            if (error) {
-                console.log("error:", error);
-            } else if(results.length == 0){
-                console.log("NEW ROOM");
-                conn.query("INSERT INTO `Rooms` SET ?",[room.data],function(err,res){
-                    if(err){
-                        console.log("error:", error);
-                    }
-                    else{
-                        console.log("ROOM SAVED IN MYDB");
-                    }
-                })
-            }else {
-                currentuser.joinRoom(room.data,function(res){
-                    console.log(Users.users);
-                    console.log("ROOM",Users.users[room.id].room);
-                });
-                
-
-            }
-
-        });        
+        console.log("joinRoom::::",room);        
         // clientInfo.socketID = {
         //     name: req.name,
         //     room: req.room
