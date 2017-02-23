@@ -28,7 +28,7 @@ module.exports = function(socket, conn, io) {
 
         conn.query("INSERT INTO Message SET ?", [message], function(err, result) {
             if (err) {
-                console.log("Error:", err);
+                console.log("Error addMessage:", err);
             } else {
                 console.log("CHAT SAVED IN MYDB");
                 console.log(result);
@@ -113,27 +113,6 @@ module.exports = function(socket, conn, io) {
 
         console.log('Last insert ID:', res.insertId);
         });
-        /*===============================================
-        =            Find PM USER from my_db            =
-        ===============================================*/
-        // conn.query('SELECT * FROM `User` WHERE `username` = ?', [pm.user], function(error, result) {
-        //     if (error) {
-        //         console.log("Private message not send-Invalid User");
-        //     } else {
-        //         console.log("FOUND PM RECEIVER FROM MYDB");
-        //         console.log("MYDB PM RESULTLEN:" + result.length);
-        //         console.log("Private User name" + result[0].username);
-        //         var socketID = result[0].socketid;
-        //         console.log("Private User SocketID" + result[0].socketid);
-        //         io.to(socketID).emit('chatMessage', {
-        //             sender: pm.sender,
-        //             text: pm.msg,
-        //             time: "Private Message",
-        //             room: pm.room
-        //         })
-        //         fn(result);
-        //     }
-        // });
     })
     
     socket.on('chatMessage', function(message, fn) {
@@ -148,9 +127,7 @@ module.exports = function(socket, conn, io) {
     })
     
     socket.on('getMessages', function(input, fn) {
-        /*==========================================
-        =            get msgs from mydb            =
-        ==========================================*/
+
         conn.query('SELECT * FROM `Message`', function(error, results) {
             if (error) {
                 console.log("error:", error);
@@ -164,9 +141,7 @@ module.exports = function(socket, conn, io) {
     })
     
     socket.on('logout', function(user, cb) {
-        /*=============================================
-        =            delete user from mydb            =
-        =============================================*/
+
         conn.query('DELETE FROM User WHERE socketid = ?', [socket.id], function(error, results, fields) {
             if (error) {
                 console.log('User remove err:::', error);

@@ -10,6 +10,13 @@ angular.module('app')
     })
     this.emit = function(event, data, cb) {
         console.log("Emitting::", event, data);
+        if(!Session.user){
+            Session.user = {
+                id : 0,
+                name: 'test'
+            }
+
+        }
         socket.emit(event, {id: Session.user.id ,name:Session.user.name, data:data }, function(response) {
             if (cb) {
                 $timeout(function() {

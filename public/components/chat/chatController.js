@@ -19,30 +19,14 @@ angular.module('app')
 
             var timestamp = moment().valueOf();
             var momentTime = moment.utc(timestamp);
-            momentTime = momentTime.local().format('h:mm a');
+                momentTime = momentTime.local().format('h:mm a');
 
-        if (text && text.substr(0, 1) === '/') {
-            var pm = {};
-            pm.sender = $scope.user;
-            pm.receiver = text.substr(1, text.indexOf(' '));
-            pm.receiver = pm.receiver.trim();
-            pm.type = 'private';
-            pm.message = text.substring(text.indexOf(' '));
-            pm.room = $scope.room;
-            pm.time = momentTime;
-            $scope.messageInput = "";
-            console.log("client pm:",pm);
-            Socket.emit("PrivateMsg", pm, function(response) {
-                console.log("PrivateMsg response:" + response);
-            });
-        } else {
+            if(!angular.isUndefined(text)) {
 
             var newMessage = {
                 sender: $scope.user,
                 receiver: 'All',
-                type: 'group',
                 message: text,
-                room: $scope.room,
                 time: momentTime
                 
             }

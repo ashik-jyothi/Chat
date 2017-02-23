@@ -12,22 +12,7 @@
         </button>
     </div>
 
-<!--         <div class="users">
-      <div class="page-header title2">
-        <h2>USERS</h2>
-      </div>
-      <div class="row">
-        <div class="col-sm-4">
-          <ul class="list-group">
-          <li class="animate-repeat" ng-repeat="user in users">
-              <h3>[{{$index + 1}}] {{user.username}}</h3>
-          </li>
-          </ul>
-        </div>
-        </div>
-        </div> -->
-
-        <div id="chat" ng-controller="chatController">
+        <div id="chat">
         <div class="msgBox container" id="messageContainer">
         <div class="col-xs-12" id="messages">
             <div id="msg_{{$index}}" ng-repeat="msg in messages">
@@ -50,6 +35,7 @@
             </div>
         </div>
     </form>
+    </div>
     </div>
     <style type="text/css">
 #chat {

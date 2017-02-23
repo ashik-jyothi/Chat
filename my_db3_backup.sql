@@ -29,7 +29,7 @@ CREATE TABLE `Admin` (
   `name` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +38,7 @@ CREATE TABLE `Admin` (
 
 LOCK TABLES `Admin` WRITE;
 /*!40000 ALTER TABLE `Admin` DISABLE KEYS */;
+INSERT INTO `Admin` VALUES (1,'Ashik','qwerty'),(2,'david','asdf');
 /*!40000 ALTER TABLE `Admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,9 +53,7 @@ CREATE TABLE `Message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sender` varchar(100) NOT NULL,
   `receiver` varchar(100) DEFAULT NULL,
-  `type` enum('private','group') DEFAULT NULL,
   `message` varchar(300) DEFAULT NULL,
-  `room` varchar(100) DEFAULT NULL,
   `time` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -70,29 +69,6 @@ LOCK TABLES `Message` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Room`
---
-
-DROP TABLE IF EXISTS `Room`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Room` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `roomname` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Room`
---
-
-LOCK TABLES `Room` WRITE;
-/*!40000 ALTER TABLE `Room` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Room` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `User`
 --
 
@@ -104,9 +80,9 @@ CREATE TABLE `User` (
   `socketid` varchar(100) NOT NULL,
   `username` varchar(40) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `room` varchar(100) DEFAULT NULL,
+  `admin` enum('true','false') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,6 +91,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
+INSERT INTO `User` VALUES (1,'sXgt4z7K4pBgjg4ZAAAE','Ashik','qwerty','true'),(2,'txAUHAetaGEiYXPEAAAB','david','asdf','true'),(3,'SDuvx7Er1LRXu9IYAAAA','john','asdf','false');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +116,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('OzofCLveFpFEBzUqCoc8in90b9oQrV6z',1487675196,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2017-02-21T11:06:35.830Z\",\"httpOnly\":true,\"path\":\"/\"}}');
+INSERT INTO `sessions` VALUES ('qs2WeW2h2zVOU8VeLgaSrF_i-SvhFUeR',1487922929,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2017-02-24T07:55:29.082Z\",\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":\"Ashik\"}}');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -152,4 +129,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-20 16:43:18
+-- Dump completed on 2017-02-23 13:35:25
