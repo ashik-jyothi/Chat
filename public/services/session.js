@@ -1,7 +1,7 @@
 angular.module('app')
     .service('Session', function() {
         this.user = window.user;
-        this.isAdmin = 'test';
+        // this.isAdmin = window.isAdmin;
 
-        console.log('Sessions init ::::::',this.user,this.isAdmin);
+        console.log('Sessions init ::::::',this.user);
     })

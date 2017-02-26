@@ -35,18 +35,18 @@ angular.module('app')
     .run(['$rootScope', '$state', 'Session', function ($rootScope, $state, Session) {
         console.log("Before state change",Session);
         $rootScope.$on('$stateChangeStart', function (e, toState) {
-            console.log('inside .run',Session)
+            console.log('inside .run',Session.user.username+ "admin:",Session.user.admin)
 
             if (toState.url == '/') {
                 e.preventDefault();
-                if (Session.user) {
+                if (Session.user && Session.user.admin == 'true') {
                     console.log("HERE");
                     $state.go('admin')
-                } //else if(Session.user && Session.isAdmin == 'false'){
-                //     e.preventDefault();
-                //     console.log("HERE1");
-                //     $state.go('chat')
-                // }
+                } else if(Session.user && Session.user.admin == 'false'){
+                    e.preventDefault();
+                    console.log("HERE1");
+                    $state.go('chat')
+                }
                 else {
                     console.log("HERE2");
                     $state.go('login')
@@ -55,13 +55,7 @@ angular.module('app')
                 e.preventDefault();
                 console.log("HERE3");
                 $state.go('login')
-            } //else if (Session.user && toState.url == '/chat') {    //login
-            //     // e.preventDefault();
-            //     $state.go('chat')
-            //  } //else if (Session.user && toState.url == '/frontpage') {
-            //     e.preventDefault();
-            //     $state.go('frontpage') 
-            // }
+            }
             return;
         });
     }])

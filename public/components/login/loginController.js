@@ -11,21 +11,9 @@ angular.module('app')
 				console.log("login function executed");
 				var username = $scope.username;
 				var password = $scope.password;
-				Socket.emit("isAdmin",username,function(res){
 
-					console.log("RES::",res)
-					if(res == 1){
-						Session.isAdmin = 'true';
-						console.log("isAdmin::",Session);
-					}else{
-						Session.isAdmin = 'false';
-					}
 					console.log('session at logincontroller:::',Session);
 					document.getElementById('login_form').submit();
-
-
-
-				})
 
 				}
 		}

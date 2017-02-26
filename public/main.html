@@ -22,6 +22,8 @@
         <!-- User Authentication -->        
         <script type="text/javascript">
             window.user = <%- user || null %>;
+            // window.isAdmin = <%- user.admin || null %>
+            console.log("INDEX user::",window.isAdmin);
         </script>
         
         <!-- Required Bower Modules -->

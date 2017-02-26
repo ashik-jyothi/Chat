@@ -13,7 +13,8 @@ module.exports = function(conn) {
                 if (res[0].password == password) {
                     return done(null, {
                         id: res[0].id,
-                        username: res[0].username
+                        username: res[0].username,
+                        admin: res[0].admin
                     })
                 } else {
                     return done(null, false, {
@@ -38,7 +39,8 @@ module.exports = function(conn) {
             if (res.length) {
                 return done(null, {
                     id: res[0].id,
-                    username: res[0].username
+                    username: res[0].username,
+                    admin: res[0].admin
                 });
             }
         })
