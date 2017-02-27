@@ -17,7 +17,7 @@ angular.module('app')
             }
 
         }
-        socket.emit(event, {id: Session.user.id ,name:Session.user.name, data:data }, function(response) {
+        socket.emit(event, {id: Session.user.id ,name:Session.user.username,admin:Session.user.admin, data:data }, function(response) {
             if (cb) {
                 $timeout(function() {
                     cb(response);

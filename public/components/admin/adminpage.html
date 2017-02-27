@@ -16,8 +16,8 @@
         <div class="msgBox container" id="messageContainer">
         <div class="col-xs-12" id="messages">
             <div id="msg_{{$index}}" ng-repeat="msg in messages">
-                <blockquote ng-if="msg.room == room || msg.sender == 'Admin'">
-                    {{msg.sender}} : {{msg.text}}
+                <blockquote>
+                    {{msg.sender}} : {{msg.message}}
                     <small>
                         {{msg.time}}
                     </small>

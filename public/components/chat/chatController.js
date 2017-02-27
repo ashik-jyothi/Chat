@@ -2,18 +2,15 @@ angular.module('app')
 .controller('chatController', ['$scope', '$document', 'Socket', 'Session', '$state', '$timeout', '$http', function($scope, $document, Socket, Session, $state, $timeout, $http) {
     
     $scope.user = Session.user.username;
-    // $scope.room = Session.room;
+
     $scope.disconnect = function() {
         $http.get('/logout').then(function(res){
             $state.go('login')
             console.log("LOGGED OUT")});
-        // window.location('/logout');
-        // Socket.emit('logout', $scope.user, function() {
-        //     console.log('Logout success')
-        //     Session.clearUser(function() {
-        //         $state.go('login', {});
-        //     })
-        // })
+        Socket.emit('logout',{},function(){
+            console.log("Logged out from server");
+            // Session.clearUser();
+        })
     }
     $scope.sendMessage = function(text) {
 
@@ -25,7 +22,7 @@ angular.module('app')
 
             var newMessage = {
                 sender: $scope.user,
-                receiver: 'All',
+                receiver: 'Admins',
                 message: text,
                 time: momentTime
                 
@@ -56,7 +53,8 @@ angular.module('app')
     }
     $scope.getMessages();
     Socket.on('chatMessage', function(message) {
-        $scope.messages.push(message);
+        console.log("INCOMING MSG::",message);
+        $scope.messages.push(message.data);
         $timeout(() => {
             var container = document.getElementById('messageContainer');
             container.scrollTop = container.scrollHeight - container.clientHeight;

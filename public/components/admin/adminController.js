@@ -1,10 +1,6 @@
 angular.module('app')
 .controller('adminController', ['$scope', '$document', 'Socket', 'Session', '$state', '$timeout', '$http', function($scope, $document, Socket, Session, $state, $timeout, $http) {
 
-    //Testing isAdmin
-    Session.isAdmin = 'adminController';
-    console.log("isAdmin",Session.isAdmin);
-
     console.log("INSIDE adminController");
     $scope.user = Session.user.username;
     $scope.disconnect = function() {
@@ -12,22 +8,56 @@ angular.module('app')
             $state.go('login')
             console.log("LOGGED OUT")});}
 
-    $scope.sendMessage = function(msg) {
+    $scope.sendMessage = function(text) {
             var timestamp = moment().valueOf();
             var momentTime = moment.utc(timestamp);
             momentTime = momentTime.local().format('h:mm a');
 
-            if(!angular.isUndefined(msg)) {
-                console.log(msg);
+            if(!angular.isUndefined(text)) {
+                console.log(text);
             var newMessage = {
                 sender: $scope.user,
                 receiver: 'All',
                 message: text,
                 time: momentTime
-                            }
+                }
+            Socket.emit("chatMessage", newMessage, function(response) {
+                console.log("EMITTING DATA MSG::",newMessage);
+                if (response == 'success') {
+                    $scope.messages.push(newMessage)
+                    $scope.messageInput = "";
+                    $timeout(() => {
+                        var container = document.getElementById('messageContainer');
+                        container.scrollTop = container.scrollHeight - container.clientHeight;
+                    });
+                }
+            });
+
 
             }
     }
+    $scope.getMessages = function() {
+    Socket.emit('getMessages', {}, function(messages) {
+            console.log('Messages:', messages)
+            $scope.messages = messages;
+            $timeout(() => {
+                var container = document.getElementById('messageContainer');
+                if (container) {
+                    container.scrollTop = container.scrollHeight - container.clientHeight;
+                }
+            });
+        })
+    }
+    $scope.getMessages();
+
+    Socket.on('chatMessage', function(message) {
+        console.log("INCOMING MSG",message);
+        $scope.messages.push(message.data);
+        $timeout(() => {
+            var container = document.getElementById('messageContainer');
+            container.scrollTop = container.scrollHeight - container.clientHeight;
+        });
+    })
 
     Socket.emit("getUsers", {}, function(res) {
         console.log("getUsers");

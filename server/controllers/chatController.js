@@ -25,13 +25,12 @@ module.exports = function(socket, conn, io) {
     }
 
     function addMessage(message, cb) {
-
-        conn.query("INSERT INTO Message SET ?", [message], function(err, result) {
+        console.log("CHAT MESSAGE::",message.data);
+        conn.query("INSERT INTO Message SET ?", [message.data], function(err, result) {
             if (err) {
                 console.log("Error addMessage:", err);
             } else {
                 console.log("CHAT SAVED IN MYDB");
-                console.log(result);
                 cb('success');
             }
         });
@@ -40,7 +39,15 @@ module.exports = function(socket, conn, io) {
         // var u = new User()
        var currentuser = Users.addUser(user.id, user.username);
         // console.log("USERS",un.users);
+        console.log("INITSOCKET DATA",user);
         console.log("NEW SOCKET ID::" + socket.id);
+        if(user.admin == 'true'){
+            socket.join('Admins')
+            console.log("joined room Admins");
+        }else if(user.admin == 'false'){
+            socket.join('Users')
+            console.log("joined room Users");
+        }
         conn.query("UPDATE User SET socketid = ? WHERE username = ?", [socket.id, user.username], function(err, result) {
             if (err) {
                 console.error('ERROR!::::::::::' + err);
@@ -82,17 +89,6 @@ module.exports = function(socket, conn, io) {
             fn(response);
         })
     })
-    // socket.on('getRooms',function(e,fn){
-    //         conn.query('SELECT roomname FROM `Room`', function(error, results) {
-    //         if (error) {
-    //             console.log("error:", error);
-    //         } else {
-    //             console.log("FETCHED ROOMS FROM MYDB");
-    //             // console.log(results);
-    //             fn(results);
-    //         }
-    //     });
-    // })
 
     socket.on('getUsers',function(e,fn){
              conn.query('SELECT username FROM `User`', function(error, results) {
@@ -106,19 +102,15 @@ module.exports = function(socket, conn, io) {
         });       
     })
     
-    socket.on('PrivateMsg', function(pm, fn) {
-        console.log("Received emitted privatemsg from:",pm);
-        conn.query('INSERT INTO Message SET ?',pm, function(err,res){
-        if(err) throw err;
-
-        console.log('Last insert ID:', res.insertId);
-        });
-    })
     
     socket.on('chatMessage', function(message, fn) {
+        console.log("SERVER SOCKET EMIT MSG::",message);
         addMessage(message, function(response) {
             if (response == 'success') {
-                socket.broadcast.emit('chatMessage', message)
+                    if(message.data.receiver == 'Admins'){
+                        socket.broadcast.to('Admins').emit('chatMessage',message)
+                    }
+                // socket.broadcast.emit('chatMessage', message)
                 fn('success');
             } else {
                 fn('error');
@@ -127,29 +119,43 @@ module.exports = function(socket, conn, io) {
     })
     
     socket.on('getMessages', function(input, fn) {
-
-        conn.query('SELECT * FROM `Message`', function(error, results) {
-            if (error) {
-                console.log("error:", error);
-                fn(error);
+            console.log("getMEssages INPUT::",input);
+            if(input.admin == 'false'){
+                conn.query('SELECT * FROM `Message` WHERE `receiver` = ? OR `sender` = ? OR `receiver`="All"',[input.name,input.name], function(error, results) {
+                    if (error) {
+                    console.log("error:", error);
+                    fn(error);
+                    } else {
+                    console.log("FETCHED MSGS FROM MYDB");
+                    // console.log(results);
+                    fn(results);
+                    }
+                });
             } else {
-                console.log("FETCHED MSGS FROM MYDB");
-                // console.log(results);
-                fn(results);
+                    conn.query('SELECT * FROM `Message` WHERE `receiver` = "Admins"', function(error, results) {
+                    if (error) {
+                    console.log("error:", error);
+                    fn(error);
+                    } else {
+                    console.log("FETCHED MSGS FROM MYDB");
+                    // console.log(results);
+                    fn(results);
+                    }
+                });
             }
-        });
+
     })
     
     socket.on('logout', function(user, cb) {
-
-        conn.query('DELETE FROM User WHERE socketid = ?', [socket.id], function(error, results, fields) {
-            if (error) {
-                console.log('User remove err:::', error);
-            } else {
-                console.log("USER DELETED FROM MYDB");
-                cb();
-            }
-        })
+        console.log("DISCONNECT Data::",user);
+        if(user.admin == 'true'){
+            socket.leave('Admins')
+            console.log("leaved room Admins");
+        }else if(user.admin == 'false'){
+            socket.leave('Users')
+            console.log("leaved room Users");
+        }
         console.log('disconnect')
+        cb();
     })
 }

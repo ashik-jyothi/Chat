@@ -35,7 +35,7 @@ angular.module('app')
     .run(['$rootScope', '$state', 'Session', function ($rootScope, $state, Session) {
         console.log("Before state change",Session);
         $rootScope.$on('$stateChangeStart', function (e, toState) {
-            console.log('inside .run',Session.user.username+ "admin:",Session.user.admin)
+            console.log('inside .run',Session.user)
 
             if (toState.url == '/') {
                 e.preventDefault();

@@ -7,15 +7,12 @@
         <button class="btn btn-primary pull-right" ng-click="disconnect()">
             Logout
         </button>
-        <button class="btn btn-primary" id="myBtn" ng-click="toggleModal()">
-            Online Users
-        </button>
     </div>
     <div class="msgBox container" id="messageContainer">
         <div class="col-xs-12" id="messages">
             <div id="msg_{{$index}}" ng-repeat="msg in messages">
-                <blockquote ng-if="msg.room == room || msg.sender == 'Admin'">
-                    {{msg.sender}} : {{msg.text}}
+                <blockquote>
+                    {{msg.sender}} : {{msg.message}}
                     <small>
                         {{msg.time}}
                     </small>
@@ -33,28 +30,6 @@
             </div>
         </div>
     </form>
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close">
-                    ×
-                </span>
-                <h2>
-                    Modal Header
-                </h2>
-            </div>
-            <div class="modal-body">
-                <p>
-                    Some text in the Modal Body
-                </p>
-                <p>
-                    Some other text...
-                </p>
-            </div>
-        </div>
-    </div>
 </div>
 <style type="text/css">
 #chat {
