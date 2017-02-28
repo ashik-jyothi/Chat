@@ -1,8 +1,21 @@
 angular.module('app')
 .controller('adminController', ['$scope', '$document', 'Socket', 'Session', '$state', '$timeout', '$http', function($scope, $document, Socket, Session, $state, $timeout, $http) {
 
+        $scope.users = ['ed','john','david'];
+    $scope.msg_wrap = false;
+    $scope.chat_boxClick = false;
+    $scope.msg_boxClick = false;
+    $scope.chatbox = function(user){
+        $scope.clickedUser = user;
+        $scope.msg_boxClick = !$scope.msg_boxClick;
+        $scope.msg_wrap = true;
+    }
+
     console.log("INSIDE adminController");
     $scope.user = Session.user.username;
+
+    $scope.options = ["ed","john","david"]
+    
     $scope.disconnect = function() {
         $http.get('/logout').then(function(res){
             $state.go('login')

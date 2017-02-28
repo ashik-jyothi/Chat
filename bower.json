@@ -17,5 +17,8 @@
   ],
   "dependencies": {
     "moment": "^2.17.1"
+  },
+  "devDependencies": {
+    "angular-bootstrap-multiselect": "https://github.com/bentorfs/angular-bootstrap-multiselect.git#^1.1.6"
   }
 }

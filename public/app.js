@@ -1,7 +1,8 @@
 'use strict';
 
 var app = angular.module('app', [
-    'ui.router'
+    'ui.router',
+    'btorfs.multiselect'
 ])
 
 angular.element(document).ready(function () {

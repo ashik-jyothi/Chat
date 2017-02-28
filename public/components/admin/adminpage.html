@@ -7,9 +7,11 @@
         <button class="btn btn-primary pull-right" ng-click="disconnect()">
             Logout
         </button>
-        <button class="btn btn-primary" id="myBtn" ng-click="toggleModal()">
+        <multiselect ng-model="selection" options="options" show-select-all="true" show-unselect-all="true">
+        </multiselect>
+<!--         <button class="btn btn-primary" id="myBtn" ng-click="toggleModal()">
             Online Users
-        </button>
+        </button> -->
     </div>
 
         <div id="chat">
@@ -29,21 +31,48 @@
         <div class="footer">
             <div class="container">
                 <input ng-model="messageInput" placeholder="Type the message..." size="55" type="text"/>
-                <button class="btn btn-primary" ng-click="sendMessage(messageInput)">
+                <button class="btn btn-primary sendbutton" ng-click="sendMessage(messageInput)">
                     Send
                 </button>
             </div>
         </div>
     </form>
     </div>
+
+
+  <div class="chat_box">
+    <div class="chat_head" ng-click="chat_boxClick = !chat_boxClick"> Chat Box</div>
+    <div class="chat_body" ng-show="chat_boxClick"> 
+    <div class="user" ng-repeat="user in users" ng-click="chatbox(user)">{{user}}</div>
     </div>
-    <style type="text/css">
+  </div>
+
+<div class="msg_box" style="right:290px" ng-show="msg_boxClick">
+    <div class="msg_head" ng-click="msg_wrap = !msg_wrap">{{clickedUser}}
+    <div class="close" ng-click="msg_boxClick = !msg_boxClick; msg_wrap = !msg_wrap ">x</div>
+    </div>
+    <div class="msg_wrap" ng-show="msg_wrap">
+        <div class="msg_body">
+            <div class="msg_a">This is from A   </div>
+            <div class="msg_b">This is from B, and its amazingly kool nah... i know it even i liked it :)</div>
+            <div class="msg_a">Wow, Thats great to hear from you man </div> 
+            <div class="msg_push"></div>
+        </div>
+    <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
+</div>
+</div>
+
+
+
+    
+    </div>
+
+<style type="text/css">
 #chat {
     width: 100%;
     height: 100vh;
 }
 .top-bar {
-    /*position: fixed;*/
     height: 50px;
     border-bottom: 1px solid #ccc;
     padding: 5px 15px;
@@ -66,6 +95,7 @@
 }
 .footer {
     position: fixed;
+    background: white;
     bottom: 0;
     height: 50px;
     padding: 5px 15px;
@@ -75,18 +105,154 @@
 .footer input {
     height: 100%;
     border: none;
-    width: calc(100% - 100px);
-}
+    width: 571px;
+/*    width: calc(100% - 100px);
+*/}
 .footer .btn {
     height: 100%;
     width: 70px;
 }
-
-/*=====  End of Chat  ======*/
-
-#myBtn {
-    margin-right: 20px;
-    float: right;
+.sendbutton {
+    margin-bottom: 14px;
 }
+multiselect {
+    margin-right: 20px;
+    float: right;    
+}
+/*-------------------------------------------------------------------------------------------------*/
+
+
+.chat_box{
+    position:fixed;
+    right:20px;
+    bottom:0px;
+    width:250px;
+}
+.chat_body{
+    background:#cecece ;
+    height:400px;
+    padding:5px 0px;
+}
+
+.chat_head,.msg_head{
+    background:#f39c12;
+    color:white;
+    padding:15px;
+    font-weight:bold;
+    cursor:pointer;
+    border-radius:5px 5px 0px 0px;
+}
+
+.msg_box{
+    position:fixed;
+    bottom:-5px;
+    width:250px;
+    background:white;
+    border-radius:5px 5px 0px 0px;
+}
+
+.msg_head{
+    background:#3498db;
+}
+
+.msg_body{
+    background:#cecece ;
+    height:200px;
+    font-size:12px;
+    padding:15px;
+    overflow:auto;
+    overflow-x: hidden;
+}
+.msg_input{
+    width:100%;
+    border: 1px solid white;
+    border-top:1px solid #DDDDDD;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;  
+}
+
+.close{
+    float:right;
+    cursor:pointer;
+}
+.minimize{
+    float:right;
+    cursor:pointer;
+    padding-right:5px;
+    
+}
+
+.user{
+    position:relative;
+    padding:10px 30px;
+}
+.user:hover{
+    background:#f8f8f8;
+    cursor:pointer;
+
+}
+.user:before{
+    content:'';
+    position:absolute;
+    background:#2ecc71;
+    height:10px;
+    width:10px;
+    left:10px;
+    top:15px;
+    border-radius:6px;
+}
+
+.msg_a{
+    position:relative;
+    background:#FDE4CE;
+    padding:10px;
+    min-height:10px;
+    margin-bottom:5px;
+    margin-right:10px;
+    border-radius:5px;
+}
+.msg_a:before{
+    content:"";
+    position:absolute;
+    width:0px;
+    height:0px;
+    border: 10px solid;
+    border-color: transparent #FDE4CE transparent transparent;
+    left:-20px;
+    top:7px;
+}
+
+
+.msg_b{
+    background:#EEF2E7;
+    padding:10px;
+    min-height:15px;
+    margin-bottom:5px;
+    position:relative;
+    margin-left:10px;
+    border-radius:5px;
+    word-wrap: break-word;
+}
+.msg_b:after{
+    content:"";
+    position:absolute;
+    width:0px;
+    height:0px;
+    border: 10px solid;
+    border-color: transparent transparent transparent #EEF2E7;
+    right:-20px;
+    top:7px;
+}
+
+.msg_footer {
+    border:1px solid #021a40;
+}
+ 
+ input {
+        height: 20px;
+        padding-bottom: 30px;
+        padding-top: 20px;
+    }
 
 </style>
