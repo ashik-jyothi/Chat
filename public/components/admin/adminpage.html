@@ -41,9 +41,9 @@
 
 
   <div class="chat_box">
-    <div class="chat_head" ng-click="chat_boxClick = !chat_boxClick"> Chat Box</div>
+    <div class="chat_head" ng-click="chat_boxClick = !chat_boxClick">Online Users</div>
     <div class="chat_body" ng-show="chat_boxClick"> 
-    <div class="user" ng-repeat="user in users" ng-click="chatbox(user)">{{user}}</div>
+    <div class="user" ng-repeat="onlineUser in onlineUsers" ng-click="chatbox(user)">{{onlineUser}}</div>
     </div>
   </div>
 
@@ -54,8 +54,8 @@
     <div class="msg_wrap" ng-show="msg_wrap">
         <div class="msg_body">
             <div class="msg_a">This is from A   </div>
-            <div class="msg_b">This is from B, and its amazingly kool nah... i know it even i liked it :)</div>
-            <div class="msg_a">Wow, Thats great to hear from you man </div> 
+            <div class="msg_b">This is from B   </div>
+            <div class="msg_a">sdjhlksdhfjsdcmsnbmn </div> 
             <div class="msg_push"></div>
         </div>
     <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
@@ -129,13 +129,13 @@ multiselect {
     width:250px;
 }
 .chat_body{
-    background:#cecece ;
+    background:#D6DBDF ;
     height:400px;
     padding:5px 0px;
 }
 
 .chat_head,.msg_head{
-    background:#f39c12;
+    background:#7D3C98;
     color:white;
     padding:15px;
     font-weight:bold;
@@ -152,11 +152,11 @@ multiselect {
 }
 
 .msg_head{
-    background:#3498db;
+    background:#286090;
 }
 
 .msg_body{
-    background:#cecece ;
+    background:#D6DBDF ;
     height:200px;
     font-size:12px;
     padding:15px;
@@ -166,6 +166,7 @@ multiselect {
 .msg_input{
     width:100%;
     border: 1px solid white;
+    background: #F8F9F9;
     border-top:1px solid #DDDDDD;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
