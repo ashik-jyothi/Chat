@@ -4,13 +4,13 @@ angular.module('app')
     $scope.user = Session.user.username;
 
     $scope.disconnect = function() {
-        $http.get('/logout').then(function(res){
+            Socket.emit('logout',{},function(){
+                console.log("Logged out from server");
+            })
+            Session.user = '';
+            $http.get('/logout').then(function(res){
             $state.go('login')
             console.log("LOGGED OUT")});
-        Socket.emit('logout',{},function(){
-            console.log("Logged out from server");
-            // Session.clearUser();
-        })
     }
     $scope.sendMessage = function(text) {
 
@@ -60,15 +60,4 @@ angular.module('app')
             container.scrollTop = container.scrollHeight - container.clientHeight;
         });
     })
-
-    $scope.toggleModal = function() {
-        var modal = document.getElementById('myModal')
-        modal.style.display = 'block';
-        $document.on('click', function(e) {
-            if (e.target == modal) {
-                modal.style.display = 'none';
-                $document.off('click');
-            }
-        })
-    }
 }])

@@ -7,11 +7,7 @@
         <button class="btn btn-primary pull-right" ng-click="disconnect()">
             Logout
         </button>
-        <multiselect ng-model="selection" options="options" show-select-all="true" show-unselect-all="true">
-        </multiselect>
-<!--         <button class="btn btn-primary" id="myBtn" ng-click="toggleModal()">
-            Online Users
-        </button> -->
+
     </div>
 
         <div id="chat">
@@ -43,7 +39,10 @@
   <div class="chat_box">
     <div class="chat_head" ng-click="chat_boxClick = !chat_boxClick">Online Users</div>
     <div class="chat_body" ng-show="chat_boxClick"> 
-    <div class="user" ng-repeat="onlineUser in onlineUsers" ng-click="chatbox(user)">{{onlineUser}}</div>
+    <div class="userdivtop"><i class="fa fa-check-square fa-lg select-all pull-right" aria-hidden="true" ng-click="selectall()"></i><i class="fa fa-times fa-lg select-none pull-right" aria-hidden="true" ng-click="selectnone()"></i></div>
+    <div class="userdiv" ng-repeat="user in onlineUsers" ng-click="chatbox(user)">{{user}}
+    <div class="tick pull-right" ng-click="selectiontick(user)"><i class="fa fa-check pull-right" aria-hidden="true" ng-show="userObj.{{user}}.selected"></i></div> 
+    </div>
     </div>
   </div>
 

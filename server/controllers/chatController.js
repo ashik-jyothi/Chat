@@ -60,24 +60,7 @@ module.exports = function(socket, conn, io) {
                 // console.log(result); 
             }
         });
-    })
-    
-    socket.on('joinRoom', function(room,cb) {
-        var currentuser = Users.getUser(room.id);
-        console.log("joinRoom::::",room);        
-        // clientInfo.socketID = {
-        //     name: req.name,
-        //     room: req.room
-        // };
-        // socket.join(req.room);
-        // socket.broadcast.to(req.room).emit('chatMessage', {
-        //     sender: "System",
-        //     text: req.name + " has joined chat!",
-        //     time: "",
-        //     room: req.room
-        // })
-        cb();
-    })
+    }) 
     
     console.log("Connected");
     

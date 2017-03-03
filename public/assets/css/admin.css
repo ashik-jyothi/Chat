@@ -64,16 +64,16 @@
     
 }
 
-.user{
+.userdiv{
     position:relative;
     padding:10px 30px;
 }
-.user:hover{
+.userdiv:hover{
     background:#85C1E9;
     cursor:pointer;
 
 }
-.user:before{
+.userdiv:before{
     content:'';
     position:absolute;
     background:#2ecc71;
@@ -130,6 +130,33 @@
     border:1px solid #021a40;
 }
 
+ .msg_input {
+        height: 20px;
+        padding-bottom: 30px;
+        padding-top: 20px;
+    }
+
+.tick {
+    width:15px;
+    height: 14px;
+    border-radius: 4px;
+    background: white;
+}
+
+.userdivtop {
+    background-color: #D6DBDF;
+    position:relative;
+    padding:10px 30px;
+    height: 28px;
+}
+
+.select-none {
+    margin-right: 15px;
+    cursor: pointer;
+}
+.select-all {
+    cursor: pointer;
+}
 
 /*=====  End of chat popup  ======*/
 
