@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('chatController', ['$scope', '$document', 'Socket', 'Session', '$state', '$timeout', '$http', function($scope, $document, Socket, Session, $state, $timeout, $http) {
+.controller('agentController', ['$scope', '$document', 'Socket', 'Session', '$state', '$timeout', '$http', function($scope, $document, Socket, Session, $state, $timeout, $http) {
     
     $scope.user = Session.user.username;
 

@@ -22,11 +22,11 @@ angular.module('app')
                     }
                 }
             })
-            .state('chat', {
-                url: '/chat',
+            .state('agent', {
+                url: '/agent',
                 views: {
                     'content': {
-                        templateUrl: 'components/chat/chat.html'
+                        templateUrl: 'components/agent/agent.html'
                     }
                 }
             })
@@ -45,7 +45,7 @@ angular.module('app')
                 } else if(Session.user && Session.user.admin == 'false'){
                     e.preventDefault();
                     console.log("HERE1");
-                    $state.go('chat')
+                    $state.go('agent')
                 }
                 else {
                     console.log("HERE2");
