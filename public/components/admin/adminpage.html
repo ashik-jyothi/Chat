@@ -35,6 +35,50 @@
     </form>
     </div>
 
+    /*=======================================
+    =            second chat div            =
+    =======================================*/
+    <div class="msg_box msg_box2" style="right:560px" ng-show="msg_boxClick">
+        <div class="msg_head" ng-click="msg_wrap = !msg_wrap">{{clickedUser}}
+            <div class="close" ng-click="msg_boxClick = !msg_boxClick; msg_wrap = !msg_wrap ">x</div>
+        </div>
+    <div class="msg_wrap" ng-show="msg_wrap">
+        <div class="msg_body">
+            <div class="msg_a">This is from A   </div>
+            <div class="msg_b">This is from B   </div>
+            <div class="msg_a">sdjhlksdhfjsdcmsnbmn </div> 
+            <div class="msg_push"></div>
+        </div>
+    <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
+    </div>
+    </div>
+    
+    /*=====  End of second chat div  ======*/
+
+    /*======================================
+    =            third chat div            =
+    ======================================*/
+    <div class="msg_box msg_box3" style="right:830px" ng-show="msg_boxClick">
+        <div class="msg_head" ng-click="msg_wrap = !msg_wrap">{{clickedUser}}
+            <div class="close" ng-click="msg_boxClick = !msg_boxClick; msg_wrap = !msg_wrap ">x</div>
+        </div>
+    <div class="msg_wrap" ng-show="msg_wrap">
+        <div class="msg_body">
+            <div class="msg_a">This is from A   </div>
+            <div class="msg_b">This is from B   </div>
+            <div class="msg_a">sdjhlksdhfjsdcmsnbmn </div> 
+            <div class="msg_push"></div>
+        </div>
+    <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
+    </div>
+    </div>
+    
+    
+    /*=====  End of third chat div  ======*/
+    
+    
+    
+
 
   <div class="chat_box">
     <div class="chat_head" ng-click="chat_boxClick = !chat_boxClick">Online Users</div>

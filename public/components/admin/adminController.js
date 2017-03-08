@@ -1,17 +1,28 @@
 angular.module('app')
 .controller('adminController', ['$scope', '$document', 'Socket', 'Session', '$state', '$timeout', '$http', function($scope, $document, Socket, Session, $state, $timeout, $http) {
 
+    $scope.onlineUsers = [];
+    $scope.userObj = {};
+    $scope.selectedCount = 0;
+    var popupCount = 0;
+
+    Socket.emit("getUsers", {}, function(res) {
+        console.log("getUsers::::::::::::::::");
+        res.forEach(function(u){
+            $scope.onlineUsers.push(u.username);
+        })
+        $scope.onlineUsers.forEach(function(x){
+            $scope.userObj[x] = {
+            selected: false
+        }
+        })
+        console.log("GETUSERS RESULT",$scope.onlineUsers);
+        $scope.users = res;
+    })
+
     /*=============================
     =            popup            =
     =============================*/
-    $scope.onlineUsers = ['ed','john','david','test','joe'];
-    $scope.userObj = {};
-    $scope.selectedCount = 0;
-    $scope.onlineUsers.forEach(function(x){
-        $scope.userObj[x] = {
-            selected: false
-        }
-    })
     console.log("USEROBJ",$scope.userObj);
     $scope.msg_wrap = false;
     $scope.chat_boxClick = false;
@@ -70,20 +81,7 @@ angular.module('app')
     
     
     /*=====  End of popup  ======*/
-    
 
-
-
-    // $scope.onlineUsers = ['ed','john','david'];
-    // $scope.msg_wrap = false;
-    // $scope.chat_boxClick = false;
-    // $scope.msg_boxClick = false;
-
-    // $scope.chatbox = function(user){
-    //     $scope.clickedUser = user;
-    //     $scope.msg_boxClick = !$scope.msg_boxClick;
-    //     $scope.msg_wrap = true;
-    // }
 
     console.log("INSIDE adminController");
     $scope.user = Session.user.username;
@@ -145,11 +143,5 @@ angular.module('app')
             var container = document.getElementById('messageContainer');
             container.scrollTop = container.scrollHeight - container.clientHeight;
         });
-    })
-
-    Socket.emit("getUsers", {}, function(res) {
-        console.log("getUsers");
-        console.log(res);
-        $scope.users = res;
     })
 }]);

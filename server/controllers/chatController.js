@@ -72,18 +72,6 @@ module.exports = function(socket, conn, io) {
             fn(response);
         })
     })
-
-    socket.on('getUsers',function(e,fn){
-             conn.query('SELECT username FROM `User`', function(error, results) {
-            if (error) {
-                console.log("error:", error);
-            } else {
-                console.log("FETCHED USERS FROM MYDB");
-                // console.log(results);
-                fn(results);
-            }
-        });       
-    })
     
     
     socket.on('chatMessage', function(message, fn) {
