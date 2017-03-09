@@ -24,20 +24,56 @@ angular.module('app')
     =            popup            =
     =============================*/
     console.log("USEROBJ",$scope.userObj);
-    $scope.msg_wrap = false;
-    $scope.chat_boxClick = false;
-    $scope.msg_boxClick = false;
+    $scope.msg_wrap = [];
+    $scope.chat_boxClick = [];
+    $scope.msg_boxClick = [];
+    $scope.clickedUser = [];
+
+    for(i=0; i < 3; i++){
+        $scope.msg_wrap[i] = false;
+        $scope.chat_boxClick[i] = false;
+        $scope.msg_boxClick[i] = false;
+    }
+
     $scope.chatbox = function(user){
-        if($scope.selectedCount < 2){
-            $scope.clickedUser = user;
-            $scope.msg_boxClick = true;
-            $scope.msg_wrap = true;
+        var matchFound = false;
+        for(var i=0; i < 3; i++){
+            if($scope.clickedUser[i] == user)
+            matchFound = true; 
+            console.log(matchFound)
+            }
+        if($scope.selectedCount == 0 && matchFound == false){
+        if($scope.msg_boxClick[0]==false){
+            console.log("HERE::")
+            $scope.clickedUser[0] = user;
+            $scope.msg_boxClick[0] = true;
+            $scope.msg_wrap[0] = true;
         }
+        else if($scope.msg_boxClick[1]==false){
+            console.log("HERE1::")
+            $scope.clickedUser[1] = user;
+            $scope.msg_boxClick[1] = true;
+            $scope.msg_wrap[1] = true;          
+        }
+        else if($scope.msg_boxClick[2]==false){
+            console.log("HERE2::")
+            $scope.clickedUser[2] = user;
+            $scope.msg_boxClick[2] = true;
+            $scope.msg_wrap[2] = true;
+        }               
+            else {
+                console.log("HERE3::")
+            $scope.clickedUser[0] = user;
+            $scope.msg_boxClick[0] = true;
+            $scope.msg_wrap[0] = true;              
+            }
 
         console.log("SELECTED USERS:::",$scope.selectedCount);
+        }
+
     }
     
-    $scope.selectiontick = function(user){
+    $scope.selection = function(user){
         if($scope.userObj[user].selected){
             $scope.userObj[user].selected = false;
             $scope.selectedCount -= 1;
@@ -47,16 +83,22 @@ angular.module('app')
         }
 
         if($scope.selectedCount > 1){
+            console.log("INSIDE 1")
             $scope.clickedUser = $scope.selectedCount + " Selected";
-            $scope.msg_boxClick = true;
+            $scope.msg_boxClick[0] = true;
         }else {
-            $scope.clickedUser = user;
+            console.log("INSIDE2")
+            $scope.clickedUser[0] = user;
             $scope.msg_boxClick = !$scope.msg_boxClick;
         }
         console.log($scope.userObj);
 
     }
-
+    $scope.close = function(index){
+        $scope.msg_boxClick[index] = !$scope.msg_boxClick[index];
+        $scope.msg_wrap[index] = !$scope.msg_wrap[index]; 
+        $scope.clickedUser[index] = "";
+    }
     $scope.selectall = function(){
         for(prop in $scope.userObj){
             $scope.userObj[prop].selected = true;

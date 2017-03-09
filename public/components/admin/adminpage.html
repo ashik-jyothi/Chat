@@ -38,40 +38,40 @@
     /*=======================================
     =            second chat div            =
     =======================================*/
-    <div class="msg_box msg_box2" style="right:560px" ng-show="msg_boxClick">
-        <div class="msg_head" ng-click="msg_wrap = !msg_wrap">{{clickedUser}}
-            <div class="close" ng-click="msg_boxClick = !msg_boxClick; msg_wrap = !msg_wrap ">x</div>
-        </div>
-    <div class="msg_wrap" ng-show="msg_wrap">
+<div class="msg_box msg_box2" style="right:560px" ng-show="msg_boxClick[1]">
+    <div class="msg_head" ng-click="msg_wrap[1] = !msg_wrap[1]">{{clickedUser[1]}}
+    <div class="close" ng-click="close(1)">x</div>
+    </div>
+    <div class="msg_wrap" ng-show="msg_wrap[1]">
         <div class="msg_body">
             <div class="msg_a">This is from A   </div>
-            <div class="msg_b">This is from B   </div>
-            <div class="msg_a">sdjhlksdhfjsdcmsnbmn </div> 
+            <div class="msg_b">This is from B, and its amazingly kool nah... i know it even i liked it :)</div>
+            <div class="msg_a">Wow, Thats great to hear from you man </div> 
             <div class="msg_push"></div>
         </div>
     <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
-    </div>
-    </div>
+</div>
+</div>
     
     /*=====  End of second chat div  ======*/
 
     /*======================================
     =            third chat div            =
     ======================================*/
-    <div class="msg_box msg_box3" style="right:830px" ng-show="msg_boxClick">
-        <div class="msg_head" ng-click="msg_wrap = !msg_wrap">{{clickedUser}}
-            <div class="close" ng-click="msg_boxClick = !msg_boxClick; msg_wrap = !msg_wrap ">x</div>
-        </div>
-    <div class="msg_wrap" ng-show="msg_wrap">
+<div class="msg_box msg_box3" style="right:830px" ng-show="msg_boxClick[2]">
+    <div class="msg_head" ng-click="msg_wrap[2] = !msg_wrap[2]">{{clickedUser[2]}}
+    <div class="close" ng-click="close(2)">x</div>
+    </div>
+    <div class="msg_wrap" ng-show="msg_wrap[2]">
         <div class="msg_body">
             <div class="msg_a">This is from A   </div>
-            <div class="msg_b">This is from B   </div>
-            <div class="msg_a">sdjhlksdhfjsdcmsnbmn </div> 
+            <div class="msg_b">This is from B, and its amazingly kool nah... i know it even i liked it :)</div>
+            <div class="msg_a">Wow, Thats great to hear from you man </div> 
             <div class="msg_push"></div>
         </div>
     <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
-    </div>
-    </div>
+</div>
+</div>
     
     
     /*=====  End of third chat div  ======*/
@@ -90,15 +90,15 @@
     </div>
   </div>
 
-<div class="msg_box" style="right:290px" ng-show="msg_boxClick">
-    <div class="msg_head" ng-click="msg_wrap = !msg_wrap">{{clickedUser}}
-    <div class="close" ng-click="msg_boxClick = !msg_boxClick; msg_wrap = !msg_wrap ">x</div>
+<div class="msg_box" style="right:290px" ng-show="msg_boxClick[0]">
+    <div class="msg_head" ng-click="msg_wrap[0] = !msg_wrap[0]">{{clickedUser[0]}}
+    <div class="close" ng-click="close(0)">x</div>
     </div>
-    <div class="msg_wrap" ng-show="msg_wrap">
+    <div class="msg_wrap" ng-show="msg_wrap[0]">
         <div class="msg_body">
             <div class="msg_a">This is from A   </div>
-            <div class="msg_b">This is from B   </div>
-            <div class="msg_a">sdjhlksdhfjsdcmsnbmn </div> 
+            <div class="msg_b">This is from B, and its amazingly kool nah... i know it even i liked it :)</div>
+            <div class="msg_a">Wow, Thats great to hear from you man </div> 
             <div class="msg_push"></div>
         </div>
     <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
