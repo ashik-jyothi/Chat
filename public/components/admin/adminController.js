@@ -1,6 +1,10 @@
 angular.module('app')
 .controller('adminController', ['$scope', '$document', 'Socket', 'Session', '$state', '$timeout', '$http', function($scope, $document, Socket, Session, $state, $timeout, $http) {
 
+    console.log("TESTING GIT BRANCH");
+
+
+
     $scope.onlineUsers = [];
     $scope.userObj = {};
     $scope.selectedCount = 0;
