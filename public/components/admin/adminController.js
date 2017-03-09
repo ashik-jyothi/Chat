@@ -1,10 +1,6 @@
 angular.module('app')
 .controller('adminController', ['$scope', '$document', 'Socket', 'Session', '$state', '$timeout', '$http', function($scope, $document, Socket, Session, $state, $timeout, $http) {
 
-    console.log("TESTING GIT BRANCH");
-
-
-
     $scope.onlineUsers = [];
     $scope.userObj = {};
     $scope.selectedCount = 0;
@@ -28,6 +24,7 @@ angular.module('app')
     =            popup            =
     =============================*/
     console.log("USEROBJ",$scope.userObj);
+    $scope.message = [];
     $scope.msg_wrap = [];
     $scope.chat_boxClick = false;
     $scope.msg_boxClick = [];
@@ -150,6 +147,11 @@ angular.module('app')
     // console.log("INSIDE adminController");
     $scope.user = Session.user.username;
 
+    if($scope.user == "Ashik"){
+        console.log("THE MAIN ADMIN");
+        
+    }
+
     // $scope.options = $scope.onlineUsers;
     
     $scope.disconnect = function() {
@@ -185,6 +187,12 @@ angular.module('app')
 
 
             }
+    }
+    $scope.inputMessage = function(event,user,index){
+        if(event.charCode == 13 && $scope.message[index] != ""){
+            console.log("MESSAGE:::",user,"-->",$scope.message[index]);
+            $scope.message[index] = "";
+        }
     }
     $scope.getMessages = function() {
     Socket.emit('getMessages', {}, function(messages) {
