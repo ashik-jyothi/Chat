@@ -35,76 +35,78 @@
     </form>
     </div>
 
+    
+  <div class="chat_box">
+    <div class="chat_head" ng-click="chat_boxClick = !chat_boxClick">Online Users</div>
+    <div class="chat_body" ng-show="chat_boxClick"> 
+    <div class="userdivtop"><i class="fa fa-check-square fa-lg select-all pull-right" aria-hidden="true" ng-click="selectall()"></i><i class="fa fa-times fa-lg select-none pull-right" aria-hidden="true" ng-click="selectnone()"></i></div>
+    <div class="userdiv" ng-repeat="user in onlineUsers" ng-click="chatbox(user)">{{user}}
+    <div class="tick pull-right" ng-click="selection(user)"><i class="fa fa-check pull-right" aria-hidden="true" ng-show="userObj.{{user}}.selected"></i></div> 
+    </div>
+    </div>
+  </div>
+
+    /*======================================
+    =            first chat div            =
+    ======================================*/
+    <div class="msg_box" style="right:290px" ng-show="msg_boxClick[0]">
+        <div class="msg_head" ng-click="msg_wrap[0] = !msg_wrap[0]">{{clickedUser[0]}}
+        <div class="close" ng-click="close(0)">x</div>
+        </div>
+        <div class="msg_wrap" ng-show="msg_wrap[0]">
+            <div class="msg_body">
+                <div class="msg_a">This is from A   </div>
+                <div class="msg_b">This is from B</div>
+                <div class="msg_a">shdajsdgfahsdjhsdjfhgas</div> 
+                <div class="msg_push"></div>
+            </div>
+        <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
+    </div>
+    </div>
+
+
+    /*=====  End of first chat div  ======*/
+
     /*=======================================
     =            second chat div            =
     =======================================*/
-<div class="msg_box msg_box2" style="right:560px" ng-show="msg_boxClick[1]">
-    <div class="msg_head" ng-click="msg_wrap[1] = !msg_wrap[1]">{{clickedUser[1]}}
-    <div class="close" ng-click="close(1)">x</div>
-    </div>
-    <div class="msg_wrap" ng-show="msg_wrap[1]">
-        <div class="msg_body">
-            <div class="msg_a">This is from A   </div>
-            <div class="msg_b">This is from B, and its amazingly kool nah... i know it even i liked it :)</div>
-            <div class="msg_a">Wow, Thats great to hear from you man </div> 
-            <div class="msg_push"></div>
+    <div class="msg_box msg_box2" style="right:560px" ng-show="msg_boxClick[1]">
+        <div class="msg_head" ng-click="msg_wrap[1] = !msg_wrap[1]">{{clickedUser[1]}}
+        <div class="close" ng-click="close(1)">x</div>
         </div>
-    <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
-</div>
-</div>
+        <div class="msg_wrap" ng-show="msg_wrap[1]">
+            <div class="msg_body">
+                <div class="msg_a">This is from A   </div>
+                <div class="msg_b">This is from B</div>
+                <div class="msg_a">shdajsdgfahsdjhsdjfhgas</div> 
+                <div class="msg_push"></div>
+            </div>
+        <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
+    </div>
+    </div>
     
     /*=====  End of second chat div  ======*/
 
     /*======================================
     =            third chat div            =
     ======================================*/
-<div class="msg_box msg_box3" style="right:830px" ng-show="msg_boxClick[2]">
-    <div class="msg_head" ng-click="msg_wrap[2] = !msg_wrap[2]">{{clickedUser[2]}}
-    <div class="close" ng-click="close(2)">x</div>
-    </div>
-    <div class="msg_wrap" ng-show="msg_wrap[2]">
-        <div class="msg_body">
-            <div class="msg_a">This is from A   </div>
-            <div class="msg_b">This is from B, and its amazingly kool nah... i know it even i liked it :)</div>
-            <div class="msg_a">Wow, Thats great to hear from you man </div> 
-            <div class="msg_push"></div>
+    <div class="msg_box msg_box3" style="right:830px" ng-show="msg_boxClick[2]">
+        <div class="msg_head" ng-click="msg_wrap[2] = !msg_wrap[2]">{{clickedUser[2]}}
+        <div class="close" ng-click="close(2)">x</div>
         </div>
-    <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
-</div>
-</div>
+        <div class="msg_wrap" ng-show="msg_wrap[2]">
+            <div class="msg_body">
+                <div class="msg_a">This is from A   </div>
+                <div class="msg_b">This is from B</div>
+                <div class="msg_a">shdajsdgfahsdjhsdjfhgas</div> 
+                <div class="msg_push"></div>
+            </div>
+        <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
+    </div>
+    </div>
     
     
     /*=====  End of third chat div  ======*/
-    
-    
-    
-
-
-  <div class="chat_box">
-    <div class="chat_head" ng-click="chat_boxClick = !chat_boxClick">Online Users</div>
-    <div class="chat_body" ng-show="chat_boxClick"> 
-    <div class="userdivtop"><i class="fa fa-check-square fa-lg select-all pull-right" aria-hidden="true" ng-click="selectall()"></i><i class="fa fa-times fa-lg select-none pull-right" aria-hidden="true" ng-click="selectnone()"></i></div>
-    <div class="userdiv" ng-repeat="user in onlineUsers" ng-click="chatbox(user)">{{user}}
-    <div class="tick pull-right" ng-click="selectiontick(user)"><i class="fa fa-check pull-right" aria-hidden="true" ng-show="userObj.{{user}}.selected"></i></div> 
-    </div>
-    </div>
-  </div>
-
-<div class="msg_box" style="right:290px" ng-show="msg_boxClick[0]">
-    <div class="msg_head" ng-click="msg_wrap[0] = !msg_wrap[0]">{{clickedUser[0]}}
-    <div class="close" ng-click="close(0)">x</div>
-    </div>
-    <div class="msg_wrap" ng-show="msg_wrap[0]">
-        <div class="msg_body">
-            <div class="msg_a">This is from A   </div>
-            <div class="msg_b">This is from B, and its amazingly kool nah... i know it even i liked it :)</div>
-            <div class="msg_a">Wow, Thats great to hear from you man </div> 
-            <div class="msg_push"></div>
-        </div>
-    <div class="msg_footer"><input class="msg_input" rows="4" placeholder="Enter your Message"></div>
-</div>
-</div>
-
 
 
     
