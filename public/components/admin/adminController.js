@@ -48,7 +48,7 @@ angular.module('app')
                 $scope.msg_wrap[i] = !($scope.msg_wrap[i])
                 }
             }
-        console.log("matchFound",matchFound)
+        // console.log("matchFound",matchFound)
         if($scope.selectedCount == 0 && matchFound == false){
             if($scope.msg_boxClick[0]==false){
                 console.log("HERE::")
@@ -120,7 +120,7 @@ angular.module('app')
     $scope.selectall = function(){
         for(prop in $scope.userObj){
             $scope.userObj[prop].selected = true;
-            console.log("HERE");
+            // console.log("HERE");
         }
         $scope.selectedCount = Object.keys($scope.userObj).length;
         $scope.clickedUser[0] = $scope.selectedCount + " Selected";
@@ -132,7 +132,7 @@ angular.module('app')
     $scope.selectnone = function(){
         for(prop in $scope.userObj){
             $scope.userObj[prop].selected = false;
-            console.log("HERE2  ");
+            // console.log("HERE2  ");
         }
         $scope.selectedCount = 0;
         initShow();
@@ -143,10 +143,10 @@ angular.module('app')
     /*=====  End of popup  ======*/
 
 
-    console.log("INSIDE adminController");
+    // console.log("INSIDE adminController");
     $scope.user = Session.user.username;
 
-    $scope.options = $scope.onlineUsers;
+    // $scope.options = $scope.onlineUsers;
     
     $scope.disconnect = function() {
         Session.user = '';
