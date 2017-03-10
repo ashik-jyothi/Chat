@@ -4,7 +4,6 @@ angular.module('app')
     $scope.onlineUsers = [];
     $scope.userObj = {};
     $scope.selectedCount = 0;
-    // var popupCount = 0;
 
     Socket.emit("getUsers", {}, function(res) {
         console.log("getUsers::::::::::::::::");
@@ -17,7 +16,6 @@ angular.module('app')
         }
         })
         console.log("GETUSERS RESULT",$scope.onlineUsers);
-        // $scope.users = res;
     })
 
     /*=============================
@@ -164,7 +162,6 @@ angular.module('app')
         
     }
 
-    // $scope.options = $scope.onlineUsers;
     
     $scope.disconnect = function() {
         Session.user = '';
@@ -172,54 +169,46 @@ angular.module('app')
             $state.go('login')
             console.log("LOGGED OUT")});}
 
-    // $scope.sendMessage = function(text) {
-    //         var timestamp = moment().valueOf();
-    //         var momentTime = moment.utc(timestamp);
-    //         momentTime = momentTime.local().format('h:mm a');
-
-    //         if(!angular.isUndefined(text)) {
-    //             console.log(text);
-    //         var newMessage = {
-    //             sender: $scope.user,
-    //             receiver: 'All',
-    //             message: text,
-    //             time: momentTime
-    //             }
-    //         Socket.emit("chatMessage", newMessage, function(response) {
-    //             console.log("EMITTING DATA MSG::",newMessage);
-    //             if (response == 'success') {
-    //                 $scope.messages.push(newMessage)
-    //                 $scope.messageInput = "";
-    //                 $timeout(() => {
-    //                     var container = document.getElementById('messageContainer');
-    //                     container.scrollTop = container.scrollHeight - container.clientHeight;
-    //                 });
-    //             }
-    //         });
-
-
-    //         }
-    // }
     $scope.inputMessage = function(event,user,index){
         if(event.charCode == 13 && $scope.message[index] != ""){
             console.log("MESSAGE:::",user,"-->",$scope.message[index]);
             
-
             var timestamp = moment().valueOf();
             var momentTime = moment.utc(timestamp);
             momentTime = momentTime.local().format('h:mm a');
 
-            var newMessage = {
-                sender: $scope.user,
-                receiver: user,
-                message: $scope.message[index],
-                time: momentTime
-                }
+            if($scope.selectedCount > 1){
+                var selecteduser = "";
 
-            Socket.emit("chatMessage", newMessage, function(response) {
-                console.log("EMITTING DATA MSG::",newMessage);
-            })
-            $scope.message[index] = "";
+                for(var key in $scope.userObj){
+                    if($scope.userObj[key].selected == true){
+                        selecteduser = key;
+                        var newMessage = {
+                            sender: $scope.user,
+                            receiver: selecteduser,
+                            message: $scope.message[index],
+                            time: momentTime
+                        }
+                    Socket.emit("chatMessage", newMessage, function(response) {
+                        console.log("EMITTING DATA MSG::",newMessage);
+                    })
+                    }
+                }
+                $scope.message[index] = "";
+            }else {
+                var newMessage = {
+                    sender: $scope.user,
+                    receiver: user,
+                    message: $scope.message[index],
+                    time: momentTime
+                    }
+
+                Socket.emit("chatMessage", newMessage, function(response) {
+                    console.log("EMITTING DATA MSG::",newMessage);
+                })
+                $scope.message[index] = "";
+            }
+
 
         }
     }

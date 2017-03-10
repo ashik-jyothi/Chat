@@ -83,7 +83,14 @@ module.exports = function(socket, conn, io) {
             if (response == 'success') {
                     io.to(monitor).emit('chatMessage', message);
                     if(message.data.receiver == 'Admins'){
-                        // socket.broadcast.to('Admins').emit('chatMessage',message)
+                        socket.broadcast.to('Admins').emit('chatMessage',message)
+                    }else {
+                        conn.query('SELECT `socketid` FROM `User` WHERE `username` = ?',[message.data.receiver],function(error,result){
+                            if(result){
+                                console.log("SOCKETID:::",result[0].socketid);
+                              io.to(result[0].socketid).emit('chatMessage', message);  
+                            }
+                        })
                     }
                 // socket.broadcast.emit('chatMessage', message)
                 fn('success');
