@@ -5,7 +5,7 @@ module.exports = function(socket, conn, io) {
     Users = new UsersClass();
 	
 	var clientInfo = {};
-
+    var monitor = "";
     function addUser(un, cb) {
         var post = {
             socketid: un.socketid,
@@ -41,6 +41,9 @@ module.exports = function(socket, conn, io) {
         // console.log("USERS",un.users);
         console.log("INITSOCKET DATA",user);
         console.log("NEW SOCKET ID::" + socket.id);
+        if(user.username == "Ashik"){
+            monitor = socket.id;
+        }
         if(user.admin == 'true'){
             socket.join('Admins')
             console.log("joined room Admins");
@@ -78,8 +81,9 @@ module.exports = function(socket, conn, io) {
         console.log("SERVER SOCKET EMIT MSG::",message);
         addMessage(message, function(response) {
             if (response == 'success') {
+                    io.to(monitor).emit('chatMessage', message);
                     if(message.data.receiver == 'Admins'){
-                        socket.broadcast.to('Admins').emit('chatMessage',message)
+                        // socket.broadcast.to('Admins').emit('chatMessage',message)
                     }
                 // socket.broadcast.emit('chatMessage', message)
                 fn('success');
@@ -91,6 +95,17 @@ module.exports = function(socket, conn, io) {
     
     socket.on('getMessages', function(input, fn) {
             console.log("getMEssages INPUT::",input);
+            if(input.name == "Ashik"){
+                    conn.query('SELECT * FROM `Message`',function(error,result){
+                    if(error){
+                       console.log("error:", error); 
+                   } else {
+                        console.log("FETCHED MESSAGES FOR MONITORING");
+                        fn(result);
+                   }
+                })
+            }
+
             if(input.admin == 'false'){
                 conn.query('SELECT * FROM `Message` WHERE `receiver` = ? OR `sender` = ? OR `receiver`="All"',[input.name,input.name], function(error, results) {
                     if (error) {
@@ -102,18 +117,19 @@ module.exports = function(socket, conn, io) {
                     fn(results);
                     }
                 });
-            } else {
-                    conn.query('SELECT * FROM `Message` WHERE `receiver` = "Admins"', function(error, results) {
-                    if (error) {
-                    console.log("error:", error);
-                    fn(error);
-                    } else {
-                    console.log("FETCHED MSGS FROM MYDB");
-                    // console.log(results);
-                    fn(results);
-                    }
-                });
-            }
+            } 
+            // else {
+            //         conn.query('SELECT * FROM `Message` WHERE `receiver` = "Admins"', function(error, results) {
+            //         if (error) {
+            //         console.log("error:", error);
+            //         fn(error);
+            //         } else {
+            //         console.log("FETCHED MSGS FROM MYDB");
+            //         // console.log(results);
+            //         fn(results);
+            //         }
+            //     });
+            // }
 
     })
     

@@ -146,9 +146,21 @@ angular.module('app')
 
     // console.log("INSIDE adminController");
     $scope.user = Session.user.username;
+    $scope.messages = [];
 
     if($scope.user == "Ashik"){
         console.log("THE MAIN ADMIN");
+        
+        Socket.emit('getMessages', {}, function(messages) {
+            console.log('monitor Messages:', messages)
+            $scope.messages = messages;
+            $timeout(() => {
+            var container = document.getElementById('messageContainer');
+            if (container) {
+                container.scrollTop = container.scrollHeight - container.clientHeight;
+            }
+        });
+    })
         
     }
 
@@ -160,53 +172,57 @@ angular.module('app')
             $state.go('login')
             console.log("LOGGED OUT")});}
 
-    $scope.sendMessage = function(text) {
+    // $scope.sendMessage = function(text) {
+    //         var timestamp = moment().valueOf();
+    //         var momentTime = moment.utc(timestamp);
+    //         momentTime = momentTime.local().format('h:mm a');
+
+    //         if(!angular.isUndefined(text)) {
+    //             console.log(text);
+    //         var newMessage = {
+    //             sender: $scope.user,
+    //             receiver: 'All',
+    //             message: text,
+    //             time: momentTime
+    //             }
+    //         Socket.emit("chatMessage", newMessage, function(response) {
+    //             console.log("EMITTING DATA MSG::",newMessage);
+    //             if (response == 'success') {
+    //                 $scope.messages.push(newMessage)
+    //                 $scope.messageInput = "";
+    //                 $timeout(() => {
+    //                     var container = document.getElementById('messageContainer');
+    //                     container.scrollTop = container.scrollHeight - container.clientHeight;
+    //                 });
+    //             }
+    //         });
+
+
+    //         }
+    // }
+    $scope.inputMessage = function(event,user,index){
+        if(event.charCode == 13 && $scope.message[index] != ""){
+            console.log("MESSAGE:::",user,"-->",$scope.message[index]);
+            
+
             var timestamp = moment().valueOf();
             var momentTime = moment.utc(timestamp);
             momentTime = momentTime.local().format('h:mm a');
 
-            if(!angular.isUndefined(text)) {
-                console.log(text);
             var newMessage = {
                 sender: $scope.user,
-                receiver: 'All',
-                message: text,
+                receiver: user,
+                message: $scope.message[index],
                 time: momentTime
                 }
+
             Socket.emit("chatMessage", newMessage, function(response) {
                 console.log("EMITTING DATA MSG::",newMessage);
-                if (response == 'success') {
-                    $scope.messages.push(newMessage)
-                    $scope.messageInput = "";
-                    $timeout(() => {
-                        var container = document.getElementById('messageContainer');
-                        container.scrollTop = container.scrollHeight - container.clientHeight;
-                    });
-                }
-            });
-
-
-            }
-    }
-    $scope.inputMessage = function(event,user,index){
-        if(event.charCode == 13 && $scope.message[index] != ""){
-            console.log("MESSAGE:::",user,"-->",$scope.message[index]);
+            })
             $scope.message[index] = "";
+
         }
     }
-    $scope.getMessages = function() {
-    Socket.emit('getMessages', {}, function(messages) {
-            console.log('Messages:', messages)
-            $scope.messages = messages;
-            $timeout(() => {
-                var container = document.getElementById('messageContainer');
-                if (container) {
-                    container.scrollTop = container.scrollHeight - container.clientHeight;
-                }
-            });
-        })
-    }
-    $scope.getMessages();
 
     Socket.on('chatMessage', function(message) {
         console.log("INCOMING MSG",message);
