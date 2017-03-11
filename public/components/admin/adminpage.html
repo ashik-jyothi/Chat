@@ -23,16 +23,6 @@
             </div>
         </div>
     </div>
-<!--     <form>
-        <div class="footer">
-            <div class="container">
-                <input ng-model="messageInput" placeholder="Type the message..." size="55" type="text"/>
-                <button class="btn btn-primary sendbutton" ng-click="sendMessage(messageInput)">
-                    Send
-                </button>
-            </div>
-        </div>
-    </form> -->
     </div>
 
     
@@ -53,10 +43,10 @@
         </div>
         <div class="msg_wrap" ng-show="msg_wrap[0]">
             <div class="msg_body">
-                <div class="msg_a">This is from A   </div>
-                <div class="msg_b">This is from B</div>
-                <div class="msg_a">shdajsdgfahsdjhsdjfhgas</div> 
-                <div class="msg_push"></div>
+                <div ng-repeat="message in popupMessage[0]">
+                <div class="msg_a" ng-if="message.sender == clickedUser[0]">{{message.message}}</div>
+                <div class="msg_b" ng-if="message.receiver == clickedUser[0]">{{message.message}}</div>
+                </div>
             </div>
         <div class="msg_footer"><textarea class="msg_input" ng-keypress="inputMessage($event,clickedUser[0],0)" rows="4" placeholder="Enter your Message" ng-model="message[0]"></textarea></div>
     </div>
@@ -70,10 +60,10 @@
         </div>
         <div class="msg_wrap" ng-show="msg_wrap[1]">
             <div class="msg_body">
-                <div class="msg_a">This is from A   </div>
-                <div class="msg_b">This is from B</div>
-                <div class="msg_a">shdajsdgfahsdjhsdjfhgas</div> 
-                <div class="msg_push"></div>
+                <div ng-repeat="message in popupMessage[1]">
+                <div class="msg_a" ng-if="message.sender == clickedUser[1]">{{message.message}}</div>
+                <div class="msg_b" ng-if="message.receiver == clickedUser[1]">{{message.message}}</div>
+                </div>
             </div>
         <div class="msg_footer"><textarea class="msg_input" ng-keypress="inputMessage($event,clickedUser[1],1)" rows="4" placeholder="Enter your Message" ng-model="message[1]"></textarea></div>
     </div>
@@ -87,10 +77,10 @@
         </div>
         <div class="msg_wrap" ng-show="msg_wrap[2]">
             <div class="msg_body">
-                <div class="msg_a">This is from A   </div>
-                <div class="msg_b">This is from B</div>
-                <div class="msg_a">shdajsdgfahsdjhsdjfhgas</div> 
-                <div class="msg_push"></div>
+                <div ng-repeat="message in popupMessage[2]">
+                <div class="msg_a" ng-if="message.sender == clickedUser[2]">{{message.message}}</div>
+                <div class="msg_b" ng-if="message.receiver == clickedUser[2]">{{message.message}}</div>
+                </div>
             </div>
         <div class="msg_footer"><textarea class="msg_input" ng-keypress="inputMessage($event,clickedUser[2],2)" rows="4" placeholder="Enter your Message" ng-model="message[2]"></textarea></div>
     </div>

@@ -8,6 +8,6 @@ module.exports = function(server, mysql) {
 	io.on('connection', function(socket) {
 		require('../controllers/adminController.js')(socket,mysql,io);
 		require('../controllers/chatController')(socket, mysql, io);
-		require('../controllers/userController')(io);
+		// require('../controllers/userController')(io);
 	})
 }

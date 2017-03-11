@@ -4,6 +4,7 @@ angular.module('app')
     $scope.onlineUsers = [];
     $scope.userObj = {};
     $scope.selectedCount = 0;
+    $scope.popupMessage = {};
 
     Socket.emit("getUsers", {}, function(res) {
         console.log("getUsers::::::::::::::::");
@@ -39,6 +40,16 @@ angular.module('app')
     }
     initShow();
 
+    var fetchMessage = function(user,index){
+        console.log("fetchMessage");
+        Socket.emit("fetchMessage",user,function(res){
+            console.log("fetchMessage response:",res);
+            $scope.popupMessage[index] = res;
+            console.log("popmessage::",$scope.popupMessage[index]); 
+        })
+        return;
+    }
+
     $scope.chatbox = function(user){
         var matchFound = false;
         for(var i=0; i < 3; i++){
@@ -51,24 +62,28 @@ angular.module('app')
         if($scope.selectedCount == 0 && matchFound == false){
             if($scope.msg_boxClick[0]==false){
                 console.log("HERE::")
+                fetchMessage(user,0);
                 $scope.clickedUser[0] = user;
                 $scope.msg_boxClick[0] = true;
                 $scope.msg_wrap[0] = true;
             }
             else if($scope.msg_boxClick[1]==false){
                 console.log("HERE1::")
+                fetchMessage(user,1);
                 $scope.clickedUser[1] = user;
                 $scope.msg_boxClick[1] = true;
                 $scope.msg_wrap[1] = true;          
             }
             else if($scope.msg_boxClick[2]==false){
                 console.log("HERE2::")
+                fetchMessage(user,2);
                 $scope.clickedUser[2] = user;
                 $scope.msg_boxClick[2] = true;
                 $scope.msg_wrap[2] = true;
             }               
                 else {
                     console.log("HERE3::")
+                fetchMessage(user,0);
                 $scope.clickedUser[0] = user;
                 $scope.msg_boxClick[0] = true;
                 $scope.msg_wrap[0] = true;              
@@ -216,9 +231,16 @@ angular.module('app')
     Socket.on('chatMessage', function(message) {
         console.log("INCOMING MSG",message);
         $scope.messages.push(message.data);
+        for(var i=0; i < 3; i++){
+            if($scope.clickedUser[i] == message.data.sender || $scope.clickedUser[i] == message.data.receiver){
+                $scope.popupMessage[i].push(message.data)
+            }
+        }
         $timeout(() => {
             var container = document.getElementById('messageContainer');
             container.scrollTop = container.scrollHeight - container.clientHeight;
         });
     })
+
+
 }]);

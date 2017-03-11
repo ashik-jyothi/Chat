@@ -1,28 +1,28 @@
 'use strict';
 
 module.exports = function(socket, conn, io) {
-    var UsersClass = require('./usersController')(io),
-    Users = new UsersClass();
+ //    var UsersClass = require('./usersController')(io),
+ //    Users = new UsersClass();
 	
-	var clientInfo = {};
+	// var clientInfo = {};
     var monitor = "";
-    function addUser(un, cb) {
-        var post = {
-            socketid: un.socketid,
-            username: un.username,
-            room: un.room
-        };
-        conn.query("INSERT INTO User SET ?", [post], function(error, result) {
-            if (error) {
-                console.log("Error Saving Data", error)
-                cb("error");
-            } else {
-                console.log("DATA SAVED IN MYDB");
-                // console.log(result);
-                cb("success");
-            }
-        });
-    }
+    // function addUser(un, cb) {
+    //     var post = {
+    //         socketid: un.socketid,
+    //         username: un.username,
+    //         room: un.room
+    //     };
+    //     conn.query("INSERT INTO User SET ?", [post], function(error, result) {
+    //         if (error) {
+    //             console.log("Error Saving Data", error)
+    //             cb("error");
+    //         } else {
+    //             console.log("DATA SAVED IN MYDB");
+    //             // console.log(result);
+    //             cb("success");
+    //         }
+    //     });
+    // }
 
     function addMessage(message, cb) {
         console.log("CHAT MESSAGE::",message.data);
@@ -36,9 +36,8 @@ module.exports = function(socket, conn, io) {
         });
     }
     socket.on('initSocket', function(user) {
-        // var u = new User()
-       var currentuser = Users.addUser(user.id, user.username);
-        // console.log("USERS",un.users);
+        
+       // var currentuser = Users.addUser(user.id, user.username);
         console.log("INITSOCKET DATA",user);
         console.log("NEW SOCKET ID::" + socket.id);
         if(user.username == "Ashik"){
@@ -55,9 +54,9 @@ module.exports = function(socket, conn, io) {
             if (err) {
                 console.error('ERROR!::::::::::' + err);
             } else {
-             var un = Users.getUser(user.id);
-                un.setSocketId(socket.id);
-                console.log("UN::::",un);
+             // var un = Users.getUser(user.id);
+             //    un.setSocketId(socket.id);
+                // console.log("UN::::",un);
 
                 console.log("SOCKETID CHANGED IN MYDB");
                 // console.log(result); 
@@ -67,16 +66,25 @@ module.exports = function(socket, conn, io) {
     
     console.log("Connected");
     
-    socket.on('register', function(Ud, fn) {
-        Ud.socketid = socketID;
-        // console.log("Ud.socketID:"+Ud.socketid);
-        console.log("received register request")
-        addUser(Ud, function(response) {
-            fn(response);
+    // socket.on('register', function(Ud, fn) {
+    //     Ud.socketid = socketID;
+    //     // console.log("Ud.socketID:"+Ud.socketid);
+    //     console.log("received register request")
+    //     addUser(Ud, function(response) {
+    //         fn(response);
+    //     })
+    // })
+    
+    socket.on('fetchMessage',function(message,fn){
+        console.log("fetchMessage::",message);
+        conn.query('SELECT * FROM `Message` WHERE `sender` = ? OR `receiver` = ?',[message.data,message.data],function(err,result){
+            fn(result);
         })
+        
     })
-    
-    
+
+
+
     socket.on('chatMessage', function(message, fn) {
         console.log("SERVER SOCKET EMIT MSG::",message);
         addMessage(message, function(response) {
